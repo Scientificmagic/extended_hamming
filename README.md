@@ -1,5 +1,7 @@
 # Extended Hamming Code
 
+## For demonstration purposes only
+
 CLI Flags
 
 	-a	-> all information
