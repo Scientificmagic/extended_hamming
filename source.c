@@ -572,7 +572,7 @@ void encode()
         }
         numParity = numParity * 2 - 1;
         float redundancy = (float)numParity / matrix->capacity * 100;
-        printf("%d parity bits / %d bit block = %2.2f%% redundancy\n",
+        printf("%d parity bits / %d bit block = %2.2f%% redundancy.\n",
             numParity, matrix->capacity, redundancy);
     }
 
