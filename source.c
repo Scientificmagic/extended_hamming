@@ -187,18 +187,16 @@ int main(int argc, char **argv)
     if (settings->encode)
     {
         if (settings->vegetarian)
-        {
             encode_vegetarian();
-        }
-        encode();
+        else
+            encode();
     }
     else if (settings->decode)
     {
         if (settings->vegetarian)
-        {
             decode_vegetarian();
-        }
-        decode();
+        else
+            decode();
     }
 
     fflush(output_file);
@@ -609,7 +607,7 @@ void decode()
             }
             else
             {
-                printf("%d or moree bit error(s) detected.\n", errors);
+                printf("%d or more bit error(s) detected.\n", errors);
                 printf("Not all errors could be corrected.\n");
             }   
         }
