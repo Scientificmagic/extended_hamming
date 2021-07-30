@@ -328,12 +328,12 @@ void encode_matrix_fill(struct Matrix *matrix, struct Buffer *buffer)
 		for (int j = 0; j < matrix->dimension; j++)
 		{	// if a power of 2 and first row/column, skip
             // [0][0] also skipped. That's desirable
-			if (i == 0 && (j & j-1) == 0)
+			if (i == 0 && (j & (j-1)) == 0)
 			{
 				matrix->matrix[i][j] = 0;
 				continue;
 			}
-			if (j == 0 && (i & i-1) == 0)
+			if (j == 0 && (i & (i-1)) == 0)
 			{
 				matrix->matrix[i][j] = 0;
 				continue;				
@@ -365,7 +365,7 @@ void encode_matrix_parity(struct Matrix *matrix)
 	int position, x, y;
 	for (int i = 0; i < intBits; i++)
 	{	// if bit shift by i is == 1
-		if ((parity >> i) & 1 == 1)
+		if (((parity >> i) & 1) == 1)
 		{
 			metaParity ^= 1;
 			position = 1 << i;
@@ -387,7 +387,7 @@ void encode_matrix_write(struct Matrix *matrix)
     // [0][0] also gets written
     for (int j = 0; j < matrix->dimension; j++)
     {
-        if ((j & j-1) == 0)
+        if ((j & (j-1)) == 0)
         {
             fprintf(output_file, "%d", matrix->matrix[0][j]);
         }
@@ -396,7 +396,7 @@ void encode_matrix_write(struct Matrix *matrix)
     // make sure to skip [0][0] in this loop
     for (int i = 1; i < matrix->dimension; i++)
     {
-        if ((i & i-1) == 0)
+        if ((i & (i-1)) == 0)
         {
             fprintf(output_file, "%d", matrix->matrix[i][0]);
         }
@@ -407,11 +407,11 @@ void encode_matrix_write(struct Matrix *matrix)
 	{
 		for (int j = 0; j < matrix->dimension; j++)
 		{   // if parity bit, don't write
-            if (i == 0 && (j & j-1) == 0)
+            if (i == 0 && (j & (j-1)) == 0)
 			{
 				continue;
 			}
-			if (j == 0 && (i & i-1) == 0)
+			if (j == 0 && (i & (i-1)) == 0)
 			{
 				continue;				
 			}
@@ -431,7 +431,7 @@ void decode_matrix_fill(struct Matrix *matrix)
     // read parity bits [0][j]
     for (int j = 0; j < matrix->dimension; j++)
     {
-        if ((j & j-1) == 0)
+        if ((j & (j-1)) == 0)
         {
             fscanf(input_file, "%1d", &matrix->matrix[0][j]);
         }
@@ -439,7 +439,7 @@ void decode_matrix_fill(struct Matrix *matrix)
     // read parity bits [i][0], skipping [0][0]
     for (int i = 1; i < matrix->dimension; i++)
     {
-        if ((i & i-1) == 0)
+        if ((i & (i-1)) == 0)
         {
             fscanf(input_file, "%1d", &matrix->matrix[i][0]);
         }
@@ -450,11 +450,11 @@ void decode_matrix_fill(struct Matrix *matrix)
 	{
 		for (int j = 0; j < matrix->dimension; j++)
 		{   // if parity bit, don't write
-            if (i == 0 && (j & j-1) == 0)
+            if (i == 0 && (j & (j-1)) == 0)
 			{
 				continue;
 			}
-			if (j == 0 && (i & i-1) == 0)
+			if (j == 0 && (i & (i-1)) == 0)
 			{
 				continue;				
 			}
@@ -518,11 +518,11 @@ void decode_matrix_write(struct Matrix *matrix, struct Buffer *buffer)
     {
         for (int j = 0; j < matrix->dimension; j++)
         {   // don't enqueue parity bits
-            if (i == 0 && (j & j-1) == 0)
+            if (i == 0 && (j & (j-1)) == 0)
 			{
 				continue;
 			}
-			if (j == 0 && (i & i-1) == 0)
+			if (j == 0 && (i & (i-1)) == 0)
 			{
 				continue;				
 			}
